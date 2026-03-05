@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="no-js">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -80,7 +80,14 @@
                 <div class="logo">
                     <a class="logo__link" href="#home" aria-label="Emechi Consultants Home">Emechi Consultants</a>
                 </div>
-                <ul class="nav-menu">
+                <button type="button" class="mobile-menu-button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="nav-menu">
+                    <span class="hamburger-icon">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </span>
+                </button>
+                <ul class="nav-menu" id="nav-menu">
                     <li class="nav-menu__item"><a class="nav-menu__link" href="#home">Home</a></li>
                     <li class="nav-menu__item"><a class="nav-menu__link" href="#services">Services</a></li>
                     <li class="nav-menu__item"><a class="nav-menu__link" href="#about">About</a></li>
@@ -91,7 +98,7 @@
     </header>
 
     <!-- Main Content -->
-    <main role="main">
+    <main role="main" id="main">
         <!-- Hero Section -->
         <section id="home" class="hero" aria-labelledby="hero-heading">
             <div class="hero__content">
@@ -187,30 +194,30 @@
                 <p class="contact__intro">Ready to take your computer accessories trading business to the next level? Contact us for a consultation.</p>
 
                 <div class="contact__content">
-                    <form action="https://formspree.io/f/{form_id}" method="POST" class="contact-form" aria-label="Contact form">
+                    <form action="https://formspree.io/f/{form_id}" method="POST" class="contact-form" aria-label="Contact form" novalidate>
                         <div class="contact-form__group">
                             <label class="contact-form__label" for="name">Full Name <span aria-label="required">*</span></label>
-                            <input class="contact-form__input" type="text" id="name" name="name" required aria-required="true" placeholder="Enter your full name">
+                            <input class="contact-form__input" type="text" id="name" name="name" required aria-required="true" placeholder="Enter your full name" minlength="2" maxlength="100">
                         </div>
 
                         <div class="contact-form__group">
                             <label class="contact-form__label" for="email">Email Address <span aria-label="required">*</span></label>
-                            <input class="contact-form__input" type="email" id="email" name="email" required aria-required="true" placeholder="your.email@example.com">
+                            <input class="contact-form__input" type="email" id="email" name="email" required aria-required="true" placeholder="your.email@example.com" maxlength="100">
                         </div>
 
                         <div class="contact-form__group">
                             <label class="contact-form__label" for="company">Company Name</label>
-                            <input class="contact-form__input" type="text" id="company" name="company" placeholder="Your company name (optional)">
+                            <input class="contact-form__input" type="text" id="company" name="company" placeholder="Your company name (optional)" maxlength="100">
                         </div>
 
                         <div class="contact-form__group">
                             <label class="contact-form__label" for="phone">Phone Number</label>
-                            <input class="contact-form__input" type="tel" id="phone" name="phone" placeholder="+1 (555) 123-4567">
+                            <input class="contact-form__input" type="tel" id="phone" name="phone" placeholder="+1 (555) 123-4567" maxlength="20">
                         </div>
 
                         <div class="contact-form__group">
                             <label class="contact-form__label" for="service">Service Interest</label>
-                            <select class="contact-form__select" id="service" name="service">
+                            <select class="contact-form__select" id="service" name="service" aria-label="Select service interest">
                                 <option value="">Select a service (optional)</option>
                                 <option value="market-analysis">Market Analysis & Trends</option>
                                 <option value="sourcing-strategy">Sourcing Strategy</option>
@@ -224,10 +231,10 @@
 
                         <div class="contact-form__group">
                             <label class="contact-form__label" for="message">Message <span aria-label="required">*</span></label>
-                            <textarea class="contact-form__textarea" id="message" name="message" rows="6" required aria-required="true" placeholder="Tell us about your consultation needs..."></textarea>
+                            <textarea class="contact-form__textarea" id="message" name="message" rows="6" required aria-required="true" placeholder="Tell us about your consultation needs..." minlength="10" maxlength="1000"></textarea>
                         </div>
 
-                        <button type="submit" class="contact-form__submit">Send Message</button>
+                        <button type="submit" class="contact-form__submit" aria-label="Submit contact form">Send Message</button>
                     </form>
 
                     <div class="contact-info">
