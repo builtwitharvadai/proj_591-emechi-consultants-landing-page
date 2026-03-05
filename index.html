@@ -194,7 +194,7 @@
                 <p class="contact__intro">Ready to take your computer accessories trading business to the next level? Contact us for a consultation.</p>
 
                 <div class="contact__content">
-                    <form action="https://formspree.io/f/{form_id}" method="POST" class="contact-form" aria-label="Contact form" novalidate>
+                    <form action="https://formspree.io/f/{form_id}" method="POST" class="contact-form" aria-label="Contact form">
                         <div class="contact-form__group">
                             <label class="contact-form__label" for="name">Full Name <span aria-label="required">*</span></label>
                             <input class="contact-form__input" type="text" id="name" name="name" required aria-required="true" placeholder="Enter your full name" minlength="2" maxlength="100">
@@ -233,6 +233,8 @@
                             <label class="contact-form__label" for="message">Message <span aria-label="required">*</span></label>
                             <textarea class="contact-form__textarea" id="message" name="message" rows="6" required aria-required="true" placeholder="Tell us about your consultation needs..." minlength="10" maxlength="1000"></textarea>
                         </div>
+
+                        <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
 
                         <button type="submit" class="contact-form__submit" aria-label="Submit contact form">Send Message</button>
                     </form>

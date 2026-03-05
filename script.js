@@ -313,6 +313,7 @@
         if (submitButton) {
             submitButton.disabled = true;
             submitButton.textContent = 'Sending...';
+            submitButton.classList.add('contact-form__submit--loading');
         }
 
         const formData = new FormData(form);
@@ -320,12 +321,13 @@
 
         // Check if form action is configured
         if (!formAction || formAction.includes('{form_id}')) {
-            log('error', 'Form action not configured properly');
-            showMessage('error', 'Form configuration error. Please contact us directly via email.');
+            log('error', 'Form action not configured properly', { action: formAction });
+            showMessage('error', 'Form configuration error. Please contact us directly via email at contact@emechiconsultants.com.');
 
             if (submitButton) {
                 submitButton.disabled = false;
                 submitButton.textContent = originalButtonText;
+                submitButton.classList.remove('contact-form__submit--loading');
             }
             return;
         }
@@ -339,25 +341,33 @@
             }
         })
         .then(function(response) {
+            log('info', 'Formspree response received', { status: response.status, ok: response.ok });
+
             if (response.ok) {
                 log('info', 'Form submitted successfully');
                 showMessage('success', 'Thank you for your message! We\'ll get back to you within 24 hours.');
                 form.reset();
+                return;
             } else {
                 return response.json().then(function(data) {
-                    throw new Error(data.error || 'Form submission failed');
+                    log('error', 'Formspree returned error response', { status: response.status, data: data });
+                    throw new Error(data.error || data.message || 'Form submission failed');
+                }).catch(function(parseError) {
+                    log('error', 'Could not parse error response', { error: parseError.message });
+                    throw new Error('Form submission failed with status: ' + response.status);
                 });
             }
         })
         .catch(function(error) {
-            log('error', 'Form submission error', { error: error.message });
-            showMessage('error', 'Sorry, there was an error sending your message. Please try again or contact us directly via email.');
+            log('error', 'Form submission error', { error: error.message, stack: error.stack });
+            showMessage('error', 'Sorry, there was an error sending your message. Please try again or contact us directly via email at contact@emechiconsultants.com.');
         })
         .finally(function() {
             // Re-enable submit button
             if (submitButton) {
                 submitButton.disabled = false;
                 submitButton.textContent = originalButtonText;
+                submitButton.classList.remove('contact-form__submit--loading');
             }
         });
     }
@@ -378,6 +388,7 @@
         const messageElement = document.createElement('div');
         messageElement.className = `form-message form-message--${type}`;
         messageElement.setAttribute('role', type === 'error' ? 'alert' : 'status');
+        messageElement.setAttribute('aria-live', type === 'error' ? 'assertive' : 'polite');
         messageElement.textContent = message;
 
         form.insertAdjacentElement('beforebegin', messageElement);
@@ -389,10 +400,17 @@
         if (type === 'success') {
             setTimeout(function() {
                 if (messageElement.parentNode) {
-                    messageElement.remove();
+                    messageElement.classList.add('form-message--fade-out');
+                    setTimeout(function() {
+                        if (messageElement.parentNode) {
+                            messageElement.remove();
+                        }
+                    }, 300);
                 }
             }, 10000);
         }
+
+        log('info', `Message displayed: ${type}`, { message: message });
     }
 
     /**
