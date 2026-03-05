@@ -476,6 +476,16 @@ h4 {
     transform: translateY(0);
 }
 
+.contact-form__submit:disabled {
+    background-color: var(--color-secondary);
+    cursor: not-allowed;
+    transform: none;
+}
+
+.contact-form__submit--loading {
+    position: relative;
+}
+
 .contact-info {
     background-color: var(--color-background);
     padding: var(--spacing-xl);
@@ -516,6 +526,48 @@ h4 {
 
 .contact-info__link:hover {
     color: var(--color-accent);
+}
+
+/* Form Message Styles */
+.form-message {
+    padding: var(--spacing-md) var(--spacing-lg);
+    border-radius: var(--border-radius);
+    margin-bottom: var(--spacing-lg);
+    font-weight: 500;
+    animation: fadeIn 0.3s ease-in;
+}
+
+.form-message--success {
+    background-color: var(--color-success);
+    color: #ffffff;
+    box-shadow: 0 4px 6px rgba(16, 185, 129, 0.2);
+}
+
+.form-message--error {
+    background-color: var(--color-error);
+    color: #ffffff;
+    box-shadow: 0 4px 6px rgba(239, 68, 68, 0.2);
+}
+
+.form-message--fade-out {
+    animation: fadeOut 0.3s ease-out forwards;
+}
+
+/* Field Error Styles */
+.field-error {
+    display: block;
+    color: var(--color-error);
+    font-size: var(--font-size-sm);
+    margin-top: var(--spacing-xs);
+    font-weight: 500;
+}
+
+.input-error {
+    border-color: var(--color-error) !important;
+}
+
+.input-error:focus {
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1) !important;
 }
 
 /* Footer */
@@ -589,6 +641,28 @@ h4 {
     }
 }
 
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+}
+
 /* Tablet Media Query (768px+) */
 @media (min-width: 768px) {
     .nav-menu {
@@ -629,6 +703,11 @@ h4 {
 
     .footer__content {
         grid-template-columns: repeat(2, 1fr);
+    }
+
+    .form-message {
+        padding: var(--spacing-lg) var(--spacing-xl);
+        font-size: var(--font-size-lg);
     }
 }
 
